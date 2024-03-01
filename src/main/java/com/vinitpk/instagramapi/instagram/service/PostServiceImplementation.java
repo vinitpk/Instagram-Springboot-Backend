@@ -7,6 +7,7 @@ import com.vinitpk.instagramapi.instagram.model.Post;
 import com.vinitpk.instagramapi.instagram.model.User;
 import com.vinitpk.instagramapi.instagram.repository.PostRepository;
 import com.vinitpk.instagramapi.instagram.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +55,7 @@ public class PostServiceImplementation implements PostService{
     }
 
     // Method to delete a post
+    @Transactional
     @Override
     public String deletePost(Integer postId, Integer userId) throws UserException, PostException {
 
@@ -63,8 +65,18 @@ public class PostServiceImplementation implements PostService{
         // Find the user by ID
         User user = userService.findUserById(userId);
 
+        // Get all users who saved post
+        List<User> postSavedUsers = userRepository.findBySavedPost(post);
+
         // Check if the user is the owner of the post
         if(post.getUser().getId().equals(user.getId())){
+
+            // Remove savedPost one by one from user
+            for(User u: postSavedUsers){
+                u.getSavedPost().remove(post);
+                userRepository.save(u);
+            }
+
             // Delete the post
             postRepository.deleteById(postId);
             return "Post deleted successfully";

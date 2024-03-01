@@ -44,7 +44,7 @@ public class User {
     @OneToMany(cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Story> stories = new ArrayList<Story>(); // List of stories posted by this user
 
-    @ManyToMany
+    @ManyToMany(cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Post> savedPost = new ArrayList<Post>(); // List of posts saved by this user
 
     // Default constructor

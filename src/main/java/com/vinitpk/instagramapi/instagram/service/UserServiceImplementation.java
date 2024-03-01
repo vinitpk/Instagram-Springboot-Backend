@@ -243,40 +243,44 @@ public class UserServiceImplementation implements UserService {
      * @throws UserException If there is an issue with updating the user details
      */
     @Override
-    public User updateUserDetails(User existingUser, User updatedUser ) throws UserException {
-        if(updatedUser.getEmail() != null){
+    public User updateUserDetails(User existingUser, User updatedUser) throws UserException {
+        if (!existingUser.getId().equals(updatedUser.getId())) {
+            throw new UserException("You can't update another user.");
+        }
+        if (updatedUser.getUsername() != null) {
+            if (!existingUser.getUsername().equals(updatedUser.getUsername())) {
+                // Check if the new username is already taken
+                Optional<User> duplicateUser = userRepository.findByUsername(updatedUser.getUsername());
+                if (duplicateUser.isPresent()) {
+                    throw new UserException("Username is already taken. Choose a different username.");
+                }
+                existingUser.setUsername(updatedUser.getUsername());
+            }
+        }
+        if (updatedUser.getEmail() != null) {
             existingUser.setEmail(updatedUser.getEmail());
         }
-        if(updatedUser.getUsername() != null){
-            User duplicateUser = findUserByUsername(updatedUser.getUsername());
-            if(Objects.equals(duplicateUser.getUsername(), updatedUser.getUsername()) && !Objects.equals(duplicateUser.getId(), updatedUser.getId())){
-                throw new UserException("User name is already taken. Choose different user name.");
-            }
-            existingUser.setUsername(updatedUser.getUsername());
-        }
-        if(updatedUser.getName() != null){
+        if (updatedUser.getName() != null) {
             existingUser.setName(updatedUser.getName());
         }
-        if(updatedUser.getBio() != null){
+        if (updatedUser.getBio() != null) {
             existingUser.setBio(updatedUser.getBio());
         }
-        if(updatedUser.getMobile() != null){
+        if (updatedUser.getMobile() != null) {
             existingUser.setMobile(updatedUser.getMobile());
         }
-        if(updatedUser.getGender()!=null){
+        if (updatedUser.getGender() != null) {
             existingUser.setGender(updatedUser.getGender());
         }
-        if(updatedUser.getWebsite()!=null){
+        if (updatedUser.getWebsite() != null) {
             existingUser.setWebsite(updatedUser.getWebsite());
         }
-        if(updatedUser.getImage()!=null){
+        if (updatedUser.getImage() != null) {
             existingUser.setImage(updatedUser.getImage());
-        }
-        if(!Objects.equals(updatedUser.getId(), existingUser.getId())) {
-            throw new UserException("you can't update another user");
         }
 
         return userRepository.save(existingUser);
     }
+
 
 }

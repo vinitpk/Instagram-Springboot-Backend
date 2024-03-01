@@ -1,5 +1,6 @@
 package com.vinitpk.instagramapi.instagram.service;
 
+import com.vinitpk.instagramapi.instagram.exception.PostException;
 import com.vinitpk.instagramapi.instagram.exception.StoryException;
 import com.vinitpk.instagramapi.instagram.exception.UserException;
 import com.vinitpk.instagramapi.instagram.model.Story;
@@ -35,5 +36,16 @@ public interface StoryService {
      * @throws StoryException If there is an issue retrieving stories
      */
     List<Story> findStoryByUserId(Integer userId) throws UserException, StoryException;
+
+    /**
+     * Delete a Story.
+     *
+     * @param storyId The ID of the post to delete.
+     * @param userId The ID of the user deleting the post.
+     * @return A message indicating the status of the deletion.
+     * @throws UserException If the user does not exist.
+     * @throws PostException If the post does not exist.
+     */
+    String deleteStory(Integer storyId, Integer userId) throws UserException, StoryException;
 
 }

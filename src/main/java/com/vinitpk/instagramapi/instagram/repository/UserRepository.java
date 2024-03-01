@@ -1,7 +1,9 @@
 package com.vinitpk.instagramapi.instagram.repository;
 
+import com.vinitpk.instagramapi.instagram.model.Post;
 import com.vinitpk.instagramapi.instagram.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -32,5 +34,10 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     // Custom query to find users by a search query (username or email)
     @Query("SELECT DISTINCT u FROM User u WHERE u.username LIKE %:query% OR u.email LIKE %:query%")
     List<User> findByQuery(@Param("query") String query);
+
+    // Custom query to find all user who saved Post
+    @Query("SELECT DISTINCT u FROM User u JOIN u.savedPost p WHERE :targetPost MEMBER OF u.savedPost ")
+    List<User> findBySavedPost(@Param("targetPost") Post targetPost);
+//    "SELECT DISTINCT u FROM User u JOIN u.savedPost p WHERE :targetPost MEMBER OF u.savedPost"
 
 }
