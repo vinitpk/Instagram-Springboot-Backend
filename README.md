@@ -24,7 +24,7 @@ cd Instagram-Springboot-Backend
 ```
 mvn spring-boot:run
 ```
-4. The API will be available at http://localhost:8080.
+4. The API will be available at http://localhost:5050.
 
 
 
