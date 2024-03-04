@@ -51,6 +51,7 @@ public class AuthController {
         } catch (BadCredentialsException e) {
             // Throw BadCredentialsException if user not found or authentication fails
             throw new BadCredentialsException("Invalid User Name or Password");
+            
         }
     }
 }

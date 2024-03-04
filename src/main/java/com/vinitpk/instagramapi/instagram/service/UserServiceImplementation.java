@@ -278,6 +278,9 @@ public class UserServiceImplementation implements UserService {
         if (updatedUser.getImage() != null) {
             existingUser.setImage(updatedUser.getImage());
         }
+        if (Objects.equals(updatedUser.getImage(), "remove")){
+            existingUser.setImage(null);
+        }
 
         return userRepository.save(existingUser);
     }
