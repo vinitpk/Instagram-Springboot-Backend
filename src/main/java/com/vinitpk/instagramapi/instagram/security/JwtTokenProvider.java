@@ -48,7 +48,7 @@ public class JwtTokenProvider {
                 .setIssuer("Vinit's Instagram Clone")
                 .claim("username", user.getEmail())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + 5 * 60 * 60 * 1000)) // Token expiration time: 5 hours
+//                .setExpiration(new Date(new Date().getTime() + 5 * 60 * 60 * 1000)) // Token expiration time: 5 hours
                 .signWith(key).compact();
     }
 }
