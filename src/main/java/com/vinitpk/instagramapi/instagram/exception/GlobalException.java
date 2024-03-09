@@ -6,9 +6,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Global exception handler for handling various exceptions across the application.
@@ -21,7 +24,6 @@ import java.time.LocalDateTime;
 public class GlobalException {
 
     // Exception handlers for specific exceptions
-
     @ExceptionHandler(UserException.class)
     public ResponseEntity<ErrorDetails> UserExceptionHandler(UserException e, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(e.getMessage(), request.getDescription(false), LocalDateTime.now());

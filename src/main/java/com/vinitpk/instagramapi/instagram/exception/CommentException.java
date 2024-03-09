@@ -7,7 +7,7 @@ package com.vinitpk.instagramapi.instagram.exception;
  * Project: instagram-api-springboot
  * Date: 14-02-2024
  */
-public class CommentException extends Exception {
+public class CommentException extends RuntimeException {
 
     // Default constructor
     public CommentException() {

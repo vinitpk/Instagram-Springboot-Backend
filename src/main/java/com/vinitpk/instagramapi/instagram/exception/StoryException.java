@@ -7,7 +7,7 @@ package com.vinitpk.instagramapi.instagram.exception;
  * Project: instagram-api-springboot
  * Date: 14-02-2024
  */
-public class StoryException extends Exception {
+public class StoryException extends RuntimeException {
 
     // Default constructor
     public StoryException() {

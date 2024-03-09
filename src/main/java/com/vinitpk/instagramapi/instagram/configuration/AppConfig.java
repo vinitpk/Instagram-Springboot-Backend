@@ -33,8 +33,9 @@ public class AppConfig {
                 // Authorization configuration
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                // Permit all requests to /signup endpoint with POST method
+                                // Permit all requests to /signup and /test endpoint with POST method
                                 .requestMatchers(HttpMethod.POST, "/signup").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/test").permitAll()
                                 // Require authentication for any other requests
                                 .anyRequest().authenticated())
                 // Set session creation policy to stateless

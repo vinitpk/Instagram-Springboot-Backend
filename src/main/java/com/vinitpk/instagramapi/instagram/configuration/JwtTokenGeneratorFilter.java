@@ -42,7 +42,7 @@ public class JwtTokenGeneratorFilter extends OncePerRequestFilter {
                     .claim("authorities", populateAuthorities(authentication.getAuthorities())) // Add authorities to the claims
                     .claim("username", authentication.getName()) // Add username to the claims
                     .setIssuedAt(new Date()) // Set the issued date of the token
-//                    .setExpiration(new Date(System.currentTimeMillis() + (5 * 60 * 60 * 1000))) // Set expiration time
+                    .setExpiration(new Date(System.currentTimeMillis() + (5 * 60 * 60 * 1000))) // Set expiration time
                     .signWith(key).compact(); // Sign the token with the secret key
 
             // Add the JWT token to the response header

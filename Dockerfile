@@ -3,7 +3,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 FROM openjdk:21-slim
-COPY --from=build /target/instagram-1.0.jar instagram.jar
+COPY --from=build /target/Instagram-Clone.jar Instagram.jar
 EXPOSE 5050
 ENTRYPOINT ["java", "-jar", "instagram.jar"]
 
